@@ -2,12 +2,15 @@ package org.no;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.reset;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 
 public class ApiTests {
@@ -18,7 +21,12 @@ public class ApiTests {
 
     @BeforeAll
     public static void setupAll() {
-        WireMock.configureFor("localhost", 8081);
+        configureFor("localhost", 8081);
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        reset();
     }
 
     @Test
