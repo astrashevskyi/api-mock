@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  sample-service:
+    container_name: sample-service-container
+    build:
+      context: sample-api-service/.
+      args:
+        - MAVEN_OPTS=-DskipTests -DskipITs=true -Dskip.ut=true
+        - TAG=0.1
+    ports:
+      - "8080:8080"
