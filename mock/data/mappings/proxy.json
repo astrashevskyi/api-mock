@@ -1,0 +1,9 @@
+{
+  "priority": 100,
+  "request": {
+    "urlPathPattern": ".*"
+  },
+  "response": {
+    "proxyBaseUrl": "http://sample-api-service:8080"
+  }
+}

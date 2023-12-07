@@ -1,7 +1,7 @@
 version: "3.7"
 services:
-  sample-service:
-    container_name: sample-service-container
+  sample-api-service:
+    container_name: sample-api-service-container
     build:
       context: sample-api-service/.
       args:
@@ -9,3 +9,20 @@ services:
         - TAG=0.1
     ports:
       - "8080:8080"
+
+  api-mock:
+    container_name: api-mock
+    image: wiremock/wiremock:3.3.1
+    command: "--verbose"
+    volumes:
+      - ./mock/data:/home/wiremock
+    ports:
+      - "8081:8080"
+    depends_on:
+      - sample-api-service
+    healthcheck:
+      test: curl -f localhost:8080/__admin/mappings
+      interval: 5s
+      retries: 60
+      start_period: 30s
+      timeout: 30s
